@@ -14,8 +14,7 @@ class GildedRose {
     }
 
     private void updateItem(Item item) {
-        if (!isAgedBrie(item)
-                && !isBackstagePass(item)) {
+        if (isNormalItem(item)) {
             if (item.quality > 0 && !isSulfuras(item)) {
                 item.quality--;
             }
@@ -56,11 +55,16 @@ class GildedRose {
         }
     }
 
-    private static boolean isSulfuras(Item item) {
+    private boolean isNormalItem(Item item) {
+        return !isAgedBrie(item)
+            && !isBackstagePass(item);
+    }
+
+    private boolean isSulfuras(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
-    private static boolean isBackstagePass(Item item) {
+    private boolean isBackstagePass(Item item) {
         return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 
