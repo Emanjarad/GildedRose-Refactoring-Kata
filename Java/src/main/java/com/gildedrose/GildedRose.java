@@ -16,10 +16,8 @@ class GildedRose {
     private void updateItem(Item item) {
         if (!isAgedBrie(item)
                 && !isBackstagePass(item)) {
-            if (item.quality > 0) {
-                if (!isSulfuras(item)) {
-                    item.quality--;
-                }
+            if (item.quality > 0 && !isSulfuras(item)) {
+                item.quality--;
             }
         } else {
             if (item.quality < 50) {
@@ -27,16 +25,12 @@ class GildedRose {
             }
 
                 if (isBackstagePass(item)) {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality++;
-                        }
+                    if (item.sellIn < 11 && item.quality < 50) {
+                        item.quality++;
                     }
 
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality++;
-                        }
+                    if (item.sellIn < 6 && item.quality < 50) {
+                        item.quality++;
                     }
                 }
         }
@@ -48,10 +42,8 @@ class GildedRose {
         if (item.sellIn < 0) {
             if (!isAgedBrie(item)) {
                 if (!isBackstagePass(item)) {
-                    if (item.quality > 0) {
-                        if (!isSulfuras(item)) {
-                            item.quality--;
-                        }
+                    if (item.quality > 0 && !isSulfuras(item)) {
+                        item.quality--;
                     }
                 } else {
                     item.quality = 0;
