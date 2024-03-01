@@ -20,6 +20,9 @@ class GildedRose {
             updateAgedBrie(item);
         }else if (isBackstagePass(item)) {
             updateBackstagePass(item);
+        }else if (!isSulfuras(item)){
+            updateDefaultItem(item);
+
         }
 
         updateSellIn(item);
@@ -65,6 +68,11 @@ class GildedRose {
 
     private void updateNormalItem(Item item) {
         if (item.quality > 0 && !isSulfuras(item)) {
+            item.quality--;
+        }
+    }
+    private void updateDefaultItem(Item item) {
+        if (item.quality > 0) {
             item.quality--;
         }
     }
