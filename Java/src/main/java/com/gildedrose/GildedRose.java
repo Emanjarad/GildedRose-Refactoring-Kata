@@ -7,6 +7,16 @@ class GildedRose {
         this.items = items;
     }
 
+    private static void updateBackstagePass(Item item) {
+        if (item.sellIn < 11 && item.quality < 50) {
+            item.quality++;
+        }
+
+        if (item.sellIn < 6 && item.quality < 50) {
+            item.quality++;
+        }
+    }
+
     public void updateQuality() {
         for (Item item : items) {
             updateItem(item);
@@ -16,11 +26,11 @@ class GildedRose {
     private void updateItem(Item item) {
         if (isNormalItem(item)) {
             updateNormalItem(item);
-        } else if(isAgedBrie(item)) {
+        } else if (isAgedBrie(item)) {
             updateAgedBrie(item);
-        }else if (isBackstagePass(item)) {
+        } else if (isBackstagePass(item)) {
             updateBackstagePass(item);
-        }else if (!isSulfuras(item)){
+        } else if (!isSulfuras(item)) {
             updateDefaultItem(item);
 
         }
@@ -50,16 +60,6 @@ class GildedRose {
         }
     }
 
-    private static void updateBackstagePass(Item item) {
-        if (item.sellIn < 11 && item.quality < 50) {
-            item.quality++;
-        }
-
-        if (item.sellIn < 6 && item.quality < 50) {
-            item.quality++;
-        }
-    }
-
     private void updateAgedBrie(Item item) {
         if (item.quality < 50) {
             item.quality++;
@@ -71,6 +71,7 @@ class GildedRose {
             item.quality--;
         }
     }
+
     private void updateDefaultItem(Item item) {
         if (item.quality > 0) {
             item.quality--;
