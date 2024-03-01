@@ -22,20 +22,28 @@ class GildedRose {
             updateBackstagePass(item);
         }
 
-        if (!isSulfuras(item)) {
-            item.sellIn--;
-        }
+        updateSellIn(item);
 
         if (item.sellIn < 0) {
-            if (!isAgedBrie(item)) {
-                if (!isBackstagePass(item)) {
-                    updateNormalItem(item);
-                } else {
-                    item.quality = 0;
-                }
+            handleExpiredItem(item);
+        }
+    }
+
+    private void handleExpiredItem(Item item) {
+        if (!isAgedBrie(item)) {
+            if (!isBackstagePass(item)) {
+                updateNormalItem(item);
             } else {
-                updateAgedBrie(item);
+                item.quality = 0;
             }
+        } else {
+            updateAgedBrie(item);
+        }
+    }
+
+    private void updateSellIn(Item item) {
+        if (!isSulfuras(item)) {
+            item.sellIn--;
         }
     }
 
