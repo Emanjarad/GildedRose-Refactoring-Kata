@@ -18,16 +18,8 @@ class GildedRose {
             updateNormalItem(item);
         } else if(isAgedBrie(item)) {
             updateAgedBrie(item);
-
-            if (isBackstagePass(item)) {
-                    if (item.sellIn < 11 && item.quality < 50) {
-                        item.quality++;
-                    }
-
-                    if (item.sellIn < 6 && item.quality < 50) {
-                        item.quality++;
-                    }
-                }
+        }else if (isBackstagePass(item)) {
+            updateBackstagePass(item);
         }
 
         if (!isSulfuras(item)) {
@@ -44,6 +36,16 @@ class GildedRose {
             } else {
                 updateAgedBrie(item);
             }
+        }
+    }
+
+    private static void updateBackstagePass(Item item) {
+        if (item.sellIn < 11 && item.quality < 50) {
+            item.quality++;
+        }
+
+        if (item.sellIn < 6 && item.quality < 50) {
+            item.quality++;
         }
     }
 
