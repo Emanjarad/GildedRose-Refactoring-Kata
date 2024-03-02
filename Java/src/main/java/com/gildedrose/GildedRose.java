@@ -2,96 +2,79 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
-
     public GildedRose(Item[] items) {
         this.items = items;
     }
-
-    private static void updateBackstagePass(Item item) {
-        if (item.sellIn < 11 && item.quality < 50) {
-            item.quality++;
-        }
-
-        if (item.sellIn < 6 && item.quality < 50) {
-            item.quality++;
-        }
-    }
-
     public void updateQuality() {
         for (Item item : items) {
-            updateItem(item);
+            updateItemQuality(item);
         }
     }
-
-    private void updateItem(Item item) {
+    private void updateItemQuality(Item item) {
         if (isNormalItem(item)) {
-            updateNormalItem(item);
+            updateNormalItemQuality(item);
         } else if (isAgedBrie(item)) {
-            updateAgedBrie(item);
+            updateAgedBrieQuality(item);
         } else if (isBackstagePass(item)) {
-            updateBackstagePass(item);
+            updateBackstagePassQuality(item);
         } else if (!isSulfuras(item)) {
-            updateDefaultItem(item);
-
+            updateDefaultItemQuality(item);
         }
-
         updateSellIn(item);
-
         if (item.sellIn < 0) {
             handleExpiredItem(item);
         }
     }
-
-    private void handleExpiredItem(Item item) {
-        if (!isAgedBrie(item)) {
-            if (!isBackstagePass(item)) {
-                updateNormalItem(item);
-            } else {
-                item.quality = 0;
-            }
-        } else {
-            updateAgedBrie(item);
-        }
+    private boolean isNormalItem(Item item) {
+        return !isAgedBrie(item)
+            && !isBackstagePass(item);
     }
-
+    private boolean isSulfuras(Item item) {
+        return item.name.equals("Sulfuras, Hand of Ragnaros");
+    }
+    private boolean isBackstagePass(Item item) {
+        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+    private boolean isAgedBrie(Item item) {
+        return item.name.equals("Aged Brie");
+    }
     private void updateSellIn(Item item) {
         if (!isSulfuras(item)) {
             item.sellIn--;
         }
     }
-
-    private void updateAgedBrie(Item item) {
+    private void updateAgedBrieQuality(Item item) {
         if (item.quality < 50) {
             item.quality++;
         }
     }
-
-    private void updateNormalItem(Item item) {
+    private void updateNormalItemQuality(Item item) {
         if (item.quality > 0 && !isSulfuras(item)) {
             item.quality--;
         }
     }
-
-    private void updateDefaultItem(Item item) {
+    private void updateDefaultItemQuality(Item item) {
         if (item.quality > 0) {
             item.quality--;
         }
     }
-
-    private boolean isNormalItem(Item item) {
-        return !isAgedBrie(item)
-            && !isBackstagePass(item);
+    private void updateBackstagePassQuality(Item item) {
+        if (item.sellIn < 11 && item.quality < 50) {
+            item.quality++;
+        }
+        if (item.sellIn < 6 && item.quality < 50) {
+            item.quality++;
+        }
     }
-
-    private boolean isSulfuras(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
-    }
-
-    private boolean isBackstagePass(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-    }
-
-    private boolean isAgedBrie(Item item) {
-        return item.name.equals("Aged Brie");
+    private void handleExpiredItem(Item item) {
+        if (!isAgedBrie(item)) {
+            if (!isBackstagePass(item)) {
+                updateNormalItemQuality(item);
+            } else {
+                item.quality = 0;
+            }
+        } else {
+            updateAgedBrieQuality(item);
+        }
     }
 }
